@@ -1,0 +1,32 @@
+services:
+  database:
+    container_name: users-mongodb
+    restart: always
+    image: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${DB_USER}
+      - MONGO_INITDB_ROOT_PASSWORD=${DB_PASSWORD}
+    networks:
+      - users-service-network
+    volumes:
+      - users-db-volume:/data/db
+
+  backend:
+    container_name: users-nest-api
+    depends_on:
+      - database
+    restart: always
+    build:
+      context: .
+    env_file:
+      - .env
+    networks:
+      - users-service-network
+    ports:
+      - ${SERVER_PORT}:${SERVER_PORT}
+
+networks:
+  users-service-network:
+
+volumes:
+  users-db-volume:
