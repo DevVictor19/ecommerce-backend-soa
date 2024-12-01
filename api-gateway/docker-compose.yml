@@ -1,0 +1,10 @@
+services:
+  proxy:
+    container_name: fastify-api-gateway
+    restart: always
+    build:
+      context: .
+    env_file:
+      - .env
+    ports:
+      - 8080:8080
