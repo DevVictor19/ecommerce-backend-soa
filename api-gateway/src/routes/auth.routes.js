@@ -1,12 +1,5 @@
-const authRoutes = {
-  login: {
-    prefix: "/auth/login",
-    upstream: `${process.env.AUTH_SERVICE}/auth/login`,
-  },
-  signup: {
-    prefix: "/auth/signup",
-    upstream: `${process.env.AUTH_SERVICE}/auth/signup`,
-  },
-};
+const authAllowedRoutes = ["/auth/login", "/auth/signup"];
+const authPrefix = "/auth";
+const authServiceUrl = `${process.env.AUTH_SERVICE}`;
 
-module.exports = { authRoutes };
+module.exports = { authAllowedRoutes, authPrefix, authServiceUrl };

@@ -2,40 +2,33 @@ require("dotenv").config();
 const Fastify = require("fastify");
 const proxy = require("@fastify/http-proxy");
 
-const { authRoutes } = require("./routes/auth.routes");
+const {
+  authAllowedRoutes,
+  authPrefix,
+  authServiceUrl,
+} = require("./routes/auth.routes");
 
 const server = Fastify({
   logger: true,
 });
 
-// >>>> /auth/login >>>>
+const checkAllowedRoutes = (allowedRoutes) => (request, reply, done) => {
+  const isAllowed = allowedRoutes.includes(request.url);
+
+  if (!isAllowed) {
+    reply.status(404).send({ message: "Not Found" });
+    return;
+  }
+
+  done();
+};
+
+// proxy (host) /auth -> (service) auth-service-dns/auth
 server.register(proxy, {
-  upstream: authRoutes.login.upstream,
-  prefix: authRoutes.login.prefix,
-  rewritePrefix: "",
-  preHandler: (request, reply, done) => {
-    if (request.url !== authRoutes.login.prefix) {
-      reply.status(404).send({ message: "Not Found" });
-      return;
-    }
-
-    done();
-  },
-});
-
-// >>>> /auth/signup >>>>
-server.register(proxy, {
-  upstream: authRoutes.signup.upstream,
-  prefix: authRoutes.signup.prefix,
-  rewritePrefix: "",
-  preHandler: (request, reply, done) => {
-    if (request.url !== authRoutes.signup.prefix) {
-      reply.status(404).send({ message: "Not Found" });
-      return;
-    }
-
-    done();
-  },
+  upstream: authServiceUrl,
+  prefix: authPrefix,
+  rewritePrefix: "/auth",
+  preHandler: checkAllowedRoutes(authAllowedRoutes),
 });
 
 server.listen({ port: process.env.SERVER_PORT, host: "0.0.0.0" }, (err) => {
