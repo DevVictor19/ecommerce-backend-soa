@@ -4,6 +4,7 @@ import {
   FastifyAdapter,
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
+import { Logger } from 'nestjs-pino';
 
 import { AppModule } from './app.module';
 import { AxiosExceptionFilter } from './common/filters/axios-exception.filter';
@@ -15,6 +16,7 @@ async function bootstrap() {
     new FastifyAdapter(),
   );
 
+  app.useLogger(app.get(Logger));
   app.useGlobalFilters(new AxiosExceptionFilter());
   app.useGlobalPipes(new ValidationPipe());
 

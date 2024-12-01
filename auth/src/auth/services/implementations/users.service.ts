@@ -1,6 +1,7 @@
 import { HttpService } from '@nestjs/axios';
-import { HttpException, Injectable, Logger } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { AxiosError } from 'axios';
+import { InjectPinoLogger, PinoLogger } from 'nestjs-pino';
 
 import { EnvConfigService } from '@/env-config/services/env-config-service.interface';
 
@@ -8,10 +9,11 @@ import { User, UsersService } from '../users-service.interface';
 
 @Injectable()
 export class UsersServiceImpl implements UsersService {
-  private readonly logger = new Logger(UsersService.name);
   private readonly usersServiceUrl: string;
 
   constructor(
+    @InjectPinoLogger(UsersService.name)
+    private readonly logger: PinoLogger,
     private readonly httpService: HttpService,
     envConfigService: EnvConfigService,
   ) {
