@@ -1,0 +1,10 @@
+services:
+  backend:
+    container_name: auth-nest-api
+    depends_on:
+      - database
+    restart: always
+    build:
+      context: .
+    env_file:
+      - .env
