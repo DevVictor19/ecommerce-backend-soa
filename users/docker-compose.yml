@@ -22,8 +22,6 @@ services:
       - .env
     networks:
       - users-service-network
-    ports:
-      - ${SERVER_PORT}:${SERVER_PORT}
 
 networks:
   users-service-network:
