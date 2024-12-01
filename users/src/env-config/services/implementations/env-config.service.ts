@@ -1,7 +1,7 @@
 import { Global, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
-import { EnvConfigService } from './env-config-service.interface';
+import { EnvConfigService } from '../env-config-service.interface';
 
 @Global()
 @Injectable()
