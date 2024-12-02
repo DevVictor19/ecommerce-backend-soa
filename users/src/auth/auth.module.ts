@@ -5,12 +5,12 @@ import { JwtModule } from '@nestjs/jwt';
 import { UsersModule } from '@/users/users.module';
 
 import { AuthController } from './controllers/auth.controller';
-import { AuthService } from './services/auth-service.interface';
 import { HashService } from './services/hash-service.interface';
-import { AuthServiceImpl } from './services/implementations/auth.service';
 import { HashServiceImpl } from './services/implementations/hash.service';
 import { JwtServiceImpl } from './services/implementations/jwt.service';
 import { JwtService } from './services/jwt-service.interface';
+import { LoginUseCase } from './usecases/login.usecase';
+import { SignupUseCase } from './usecases/signup.usecase';
 
 @Module({
   imports: [
@@ -24,7 +24,8 @@ import { JwtService } from './services/jwt-service.interface';
   providers: [
     { provide: HashService, useClass: HashServiceImpl },
     { provide: JwtService, useClass: JwtServiceImpl },
-    { provide: AuthService, useClass: AuthServiceImpl },
+    LoginUseCase,
+    SignupUseCase,
   ],
   controllers: [AuthController],
 })

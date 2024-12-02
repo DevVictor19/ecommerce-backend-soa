@@ -1,11 +1,10 @@
-import { randomUUID } from 'node:crypto';
-
 import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
+import { UsersFactory } from '@/users/factories/users.factory';
+
 import { User } from '../../entities/user.entity';
-import { ROLE } from '../../enums/role.enum';
 import { UsersService } from '../users-service.interface';
 
 @Injectable()
@@ -26,7 +25,7 @@ export class UsersServiceImpl implements UsersService {
       throw new ConflictException('Email already in use by another user');
     }
 
-    const user = this.createWithClientRole(username, email, password);
+    const user = UsersFactory.createWithClientRole(username, email, password);
 
     await new this.model(user).save();
   }
@@ -37,20 +36,5 @@ export class UsersServiceImpl implements UsersService {
 
   async findByEmail(email: string): Promise<User | null> {
     return this.model.findOne({ email });
-  }
-
-  private createWithClientRole(
-    username: string,
-    email: string,
-    password: string,
-  ): User {
-    const entity = new User();
-    entity._id = randomUUID();
-    entity.username = username;
-    entity.password = password;
-    entity.email = email;
-    entity.roles = [ROLE.CLIENT];
-    entity.createdAt = new Date();
-    return entity;
   }
 }
