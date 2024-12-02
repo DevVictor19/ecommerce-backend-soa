@@ -5,4 +5,5 @@ export abstract class EnvConfigService {
   abstract getDbPassword(): string;
   abstract getDbPort(): number;
   abstract getServerPort(): number;
+  abstract getServerJwtSecret(): string;
 }

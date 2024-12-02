@@ -31,4 +31,8 @@ export class EnvConfigServiceImpl implements EnvConfigService {
   getServerPort(): number {
     return this.configService.getOrThrow('SERVER_PORT');
   }
+
+  getServerJwtSecret(): string {
+    return this.configService.getOrThrow('SERVER_JWT_SECRET');
+  }
 }

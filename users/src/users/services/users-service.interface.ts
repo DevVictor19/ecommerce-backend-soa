@@ -6,6 +6,6 @@ export abstract class UsersService {
     email: string,
     password: string,
   ): Promise<void>;
-  abstract findById(userId: string): Promise<User>;
-  abstract findByEmail(email: string): Promise<User>;
+  abstract findById(userId: string): Promise<User | null>;
+  abstract findByEmail(email: string): Promise<User | null>;
 }

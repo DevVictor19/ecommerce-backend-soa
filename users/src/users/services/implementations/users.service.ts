@@ -1,10 +1,6 @@
 import { randomUUID } from 'node:crypto';
 
-import {
-  ConflictException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
@@ -35,24 +31,12 @@ export class UsersServiceImpl implements UsersService {
     await new this.model(user).save();
   }
 
-  async findById(userId: string): Promise<User> {
-    const user = await this.model.findById(userId);
-
-    if (!user) {
-      throw new NotFoundException('User not found');
-    }
-
-    return user;
+  async findById(userId: string): Promise<User | null> {
+    return this.model.findById(userId);
   }
 
-  async findByEmail(email: string): Promise<User> {
-    const user = await this.model.findOne({ email });
-
-    if (!user) {
-      throw new NotFoundException('User not found');
-    }
-
-    return user;
+  async findByEmail(email: string): Promise<User | null> {
+    return this.model.findOne({ email });
   }
 
   private createWithClientRole(

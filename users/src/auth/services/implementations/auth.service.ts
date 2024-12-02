@@ -1,9 +1,14 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
+
+import { UsersService } from '@/users/services/users-service.interface';
 
 import { AuthService } from '../auth-service.interface';
 import { HashService } from '../hash-service.interface';
 import { JwtService } from '../jwt-service.interface';
-import { UsersService } from '../users-service.interface';
 
 @Injectable()
 export class AuthServiceImpl implements AuthService {
@@ -37,6 +42,12 @@ export class AuthServiceImpl implements AuthService {
     email: string,
     password: string,
   ): Promise<void> {
+    const user = await this.usersService.findByEmail(email);
+
+    if (user) {
+      throw new ConflictException('Email already in use by another user');
+    }
+
     const hashedPassword = await this.hashService.hash(password);
 
     await this.usersService.createClient(username, email, hashedPassword);

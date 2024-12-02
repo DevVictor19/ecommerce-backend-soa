@@ -2,9 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { JwtService as NestJwtService } from '@nestjs/jwt';
 
 import { EnvConfigService } from '@/env-config/services/env-config-service.interface';
+import { User } from '@/users/entities/user.entity';
 
 import { JwtPayload, JwtService } from '../jwt-service.interface';
-import { User } from '../users-service.interface';
 
 @Injectable()
 export class JwtServiceImpl implements JwtService {
@@ -20,7 +20,7 @@ export class JwtServiceImpl implements JwtService {
   generateToken(user: User): Promise<string> {
     const payload: JwtPayload = {
       roles: user.roles,
-      userId: user.id,
+      userId: user._id,
     };
 
     return this.nestJwtService.signAsync(payload, {

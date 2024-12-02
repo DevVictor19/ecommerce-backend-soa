@@ -2,6 +2,8 @@ require("dotenv").config();
 const Fastify = require("fastify");
 const proxy = require("@fastify/http-proxy");
 
+const { getServerPort } = require("./utils/env-config");
+
 const {
   authAllowedRoutes,
   authPrefix,
@@ -31,7 +33,7 @@ server.register(proxy, {
   preHandler: checkAllowedRoutes(authAllowedRoutes),
 });
 
-server.listen({ port: process.env.SERVER_PORT, host: "0.0.0.0" }, (err) => {
+server.listen({ port: Number(getServerPort()), host: "0.0.0.0" }, (err) => {
   if (err) {
     server.log.error(err);
     process.exit(1);
