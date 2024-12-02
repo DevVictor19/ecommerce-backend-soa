@@ -1,0 +1,30 @@
+services:
+  database:
+    container_name: products-mongodb
+    restart: always
+    image: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${DB_USER}
+      - MONGO_INITDB_ROOT_PASSWORD=${DB_PASSWORD}
+    networks:
+      - products-service-network
+    volumes:
+      - products-db-volume:/data/db
+
+  backend:
+    container_name: products-nest-api
+    depends_on:
+      - database
+    restart: always
+    build:
+      context: .
+    env_file:
+      - .env
+    networks:
+      - products-service-network
+
+networks:
+  products-service-network:
+
+volumes:
+  products-db-volume:

@@ -1,0 +1,34 @@
+services:
+  database:
+    container_name: products-mongodb
+    restart: always
+    image: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${DB_USER}
+      - MONGO_INITDB_ROOT_PASSWORD=${DB_PASSWORD}
+    networks:
+      - products-service-network
+    volumes:
+      - products-db-volume:/data/db
+    ports:
+      - 27017:27017
+
+  backend:
+    container_name: products-nest-api
+    depends_on:
+      - database
+    restart: always
+    build:
+      context: .
+    env_file:
+      - .env
+    networks:
+      - products-service-network
+    ports:
+      - 8082:8080
+
+networks:
+  products-service-network:
+
+volumes:
+  products-db-volume:
