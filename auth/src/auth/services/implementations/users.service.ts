@@ -1,7 +1,5 @@
 import { HttpService } from '@nestjs/axios';
-import { HttpException, Injectable } from '@nestjs/common';
-import { AxiosError } from 'axios';
-import { InjectPinoLogger, PinoLogger } from 'nestjs-pino';
+import { Injectable } from '@nestjs/common';
 
 import { EnvConfigService } from '@/env-config/services/env-config-service.interface';
 
@@ -12,8 +10,6 @@ export class UsersServiceImpl implements UsersService {
   private readonly usersServiceUrl: string;
 
   constructor(
-    @InjectPinoLogger(UsersService.name)
-    private readonly logger: PinoLogger,
     private readonly httpService: HttpService,
     envConfigService: EnvConfigService,
   ) {
@@ -25,21 +21,11 @@ export class UsersServiceImpl implements UsersService {
     email: string,
     password: string,
   ): Promise<void> {
-    try {
-      await this.httpService.axiosRef.post(this.usersServiceUrl, {
-        username,
-        email,
-        password,
-      });
-    } catch (err) {
-      const error = err as AxiosError<HttpException>;
-
-      this.logger.error(
-        `method: createClient() | status: ${error.response?.status} | message: ${error.response?.data.message}`,
-      );
-
-      throw error;
-    }
+    await this.httpService.axiosRef.post(this.usersServiceUrl, {
+      username,
+      email,
+      password,
+    });
   }
 
   async findByEmail(email: string): Promise<User | null> {
@@ -53,10 +39,6 @@ export class UsersServiceImpl implements UsersService {
       if (error.response?.status === 404) {
         return null;
       }
-
-      this.logger.error(
-        `method: findByEmail() | status: ${error.response?.status} | message: ${error.response?.data.message}`,
-      );
 
       throw error;
     }
