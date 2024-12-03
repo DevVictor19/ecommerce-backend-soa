@@ -1,0 +1,30 @@
+services:
+  database:
+    container_name: carts-mongodb
+    restart: always
+    image: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${DB_USER}
+      - MONGO_INITDB_ROOT_PASSWORD=${DB_PASSWORD}
+    networks:
+      - carts-service-network
+    volumes:
+      - carts-db-volume:/data/db
+
+  backend:
+    container_name: carts-nest-api
+    depends_on:
+      - database
+    restart: always
+    build:
+      context: .
+    env_file:
+      - .env
+    networks:
+      - carts-service-network
+
+networks:
+  carts-service-network:
+
+volumes:
+  carts-db-volume:
