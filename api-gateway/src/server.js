@@ -2,6 +2,10 @@ require("dotenv").config();
 const Fastify = require("fastify");
 const proxy = require("@fastify/http-proxy");
 
+const { jwtAuth } = require("./middlewares/jwt-auth");
+const { checkAllowedRoutes } = require("./middlewares/check-allowed-routes");
+const { checkAuthorization } = require("./middlewares/check-authorization");
+
 const { getServerPort } = require("./utils/env-config");
 
 const {
@@ -9,33 +13,39 @@ const {
   authPrefix,
   authServiceUrl,
 } = require("./routes/auth.routes");
+const {
+  productsServiceUrl,
+  productsPrefix,
+  productsAllowedRoutes,
+} = require("./routes/products.routes");
 
-const server = Fastify({
+const fastify = Fastify({
   logger: true,
 });
 
-const checkAllowedRoutes = (allowedRoutes) => (request, reply, done) => {
-  const isAllowed = allowedRoutes.includes(request.url);
-
-  if (!isAllowed) {
-    reply.status(404).send({ message: "Not Found" });
-    return;
-  }
-
-  done();
-};
-
 // proxy (host) /auth -> (service) auth-service-dns/auth
-server.register(proxy, {
+fastify.register(proxy, {
   upstream: authServiceUrl,
   prefix: authPrefix,
   rewritePrefix: "/auth",
   preHandler: checkAllowedRoutes(authAllowedRoutes),
 });
 
-server.listen({ port: Number(getServerPort()), host: "0.0.0.0" }, (err) => {
+// proxy (host) /products -> (service) products-service-dns/products
+fastify.register(proxy, {
+  upstream: productsServiceUrl,
+  prefix: productsPrefix,
+  rewritePrefix: "/products",
+  preHandler: [
+    checkAllowedRoutes(productsAllowedRoutes),
+    jwtAuth,
+    checkAuthorization(productsAllowedRoutes),
+  ],
+});
+
+fastify.listen({ port: Number(getServerPort()), host: "0.0.0.0" }, (err) => {
   if (err) {
-    server.log.error(err);
+    fastify.log.error(err);
     process.exit(1);
   }
 });

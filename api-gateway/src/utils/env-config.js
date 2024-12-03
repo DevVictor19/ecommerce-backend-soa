@@ -5,9 +5,14 @@ const getOrThrow = (name) => {
 };
 
 const getServerPort = () => getOrThrow("SERVER_PORT");
+const getServerJwtSecret = () => getOrThrow("SERVER_JWT_SECRET");
+
 const getUsersServiceUrl = () => getOrThrow("USERS_SERVICE");
+const getProductsServiceUrl = () => getOrThrow("PRODUCTS_SERVICE");
 
 module.exports = {
   getServerPort,
+  getServerJwtSecret,
   getUsersServiceUrl,
+  getProductsServiceUrl,
 };
