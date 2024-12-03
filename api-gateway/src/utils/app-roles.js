@@ -3,4 +3,7 @@ const appRoles = {
   client: "CLIENT",
 };
 
-module.exports = { appRoles };
+const addAdminPermission = () => [appRoles.admin];
+const addClientPermission = () => [appRoles.client, appRoles.admin];
+
+module.exports = { appRoles, addAdminPermission, addClientPermission };

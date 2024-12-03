@@ -9,10 +9,12 @@ const getServerJwtSecret = () => getOrThrow("SERVER_JWT_SECRET");
 
 const getUsersServiceUrl = () => getOrThrow("USERS_SERVICE");
 const getProductsServiceUrl = () => getOrThrow("PRODUCTS_SERVICE");
+const getCartsServiceUrl = () => getOrThrow("CARTS_SERVICE");
 
 module.exports = {
   getServerPort,
   getServerJwtSecret,
   getUsersServiceUrl,
   getProductsServiceUrl,
+  getCartsServiceUrl,
 };

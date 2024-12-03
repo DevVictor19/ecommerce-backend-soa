@@ -1,4 +1,7 @@
-const { appRoles } = require("../utils/app-roles");
+const {
+  addClientPermission,
+  addAdminPermission,
+} = require("../utils/app-roles");
 const { getProductsServiceUrl } = require("../utils/env-config");
 const { httpMethods } = require("../utils/http-methods");
 
@@ -15,27 +18,27 @@ const productsAllowedRoutes = [
   {
     path: "/products",
     method: httpMethods.get,
-    roles: [appRoles.client, appRoles.admin],
+    roles: addClientPermission(),
   },
   {
     path: "/products/:id",
     method: httpMethods.get,
-    roles: [appRoles.client, appRoles.admin],
+    roles: addClientPermission(),
   },
   {
     path: "/products",
     method: httpMethods.post,
-    roles: [appRoles.admin],
+    roles: addAdminPermission(),
   },
   {
     path: "/products/:id",
     method: httpMethods.delete,
-    roles: [appRoles.admin],
+    roles: addAdminPermission(),
   },
   {
     path: "/products/:id",
     method: httpMethods.put,
-    roles: [appRoles.admin],
+    roles: addAdminPermission(),
   },
 ];
 

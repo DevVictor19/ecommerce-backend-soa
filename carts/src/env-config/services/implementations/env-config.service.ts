@@ -31,4 +31,8 @@ export class EnvConfigServiceImpl implements EnvConfigService {
   getServerPort(): number {
     return this.configService.getOrThrow('SERVER_PORT');
   }
+
+  getProductsServiceUrl(): string {
+    return this.configService.getOrThrow('PRODUCTS_SERVICE_URL');
+  }
 }
