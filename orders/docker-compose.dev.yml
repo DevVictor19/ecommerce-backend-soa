@@ -1,0 +1,34 @@
+services:
+  database:
+    container_name: orders-mongodb
+    restart: always
+    image: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${DB_USER}
+      - MONGO_INITDB_ROOT_PASSWORD=${DB_PASSWORD}
+    networks:
+      - orders-service-network
+    volumes:
+      - orders-db-volume:/data/db
+    ports:
+      - 27020:27017
+
+  backend:
+    container_name: orders-nest-api
+    depends_on:
+      - database
+    restart: always
+    build:
+      context: .
+    env_file:
+      - .env
+    networks:
+      - orders-service-network
+    ports:
+      - 8084:8080
+
+networks:
+  orders-service-network:
+
+volumes:
+  orders-db-volume:
