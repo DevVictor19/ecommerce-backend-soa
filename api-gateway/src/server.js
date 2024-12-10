@@ -23,6 +23,11 @@ const {
   cartsPrefix,
   cartsAllowedRoutes,
 } = require("./routes/carts.routes");
+const {
+  ordersServiceUrl,
+  ordersPrefix,
+  ordersAllowedRoutes,
+} = require("./routes/orders.routes");
 
 const fastify = Fastify({
   logger: true,
@@ -57,6 +62,18 @@ fastify.register(proxy, {
     checkAllowedRoutes(cartsAllowedRoutes),
     jwtAuth,
     checkAuthorization(cartsAllowedRoutes),
+  ],
+});
+
+// proxy (host) /orders -> (service) orders-service-dns/orders
+fastify.register(proxy, {
+  upstream: ordersServiceUrl,
+  prefix: ordersPrefix,
+  rewritePrefix: "/orders",
+  preHandler: [
+    checkAllowedRoutes(ordersAllowedRoutes),
+    jwtAuth,
+    checkAuthorization(ordersAllowedRoutes),
   ],
 });
 
