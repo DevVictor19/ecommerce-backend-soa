@@ -35,4 +35,8 @@ export class EnvConfigServiceImpl implements EnvConfigService {
   getServerJwtSecret(): string {
     return this.configService.getOrThrow('SERVER_JWT_SECRET');
   }
+
+  getCartServiceUrl(): string {
+    return this.configService.getOrThrow('CART_SERVICE_URL');
+  }
 }

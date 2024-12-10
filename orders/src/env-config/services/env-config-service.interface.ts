@@ -6,4 +6,5 @@ export abstract class EnvConfigService {
   abstract getDbPort(): number;
   abstract getServerPort(): number;
   abstract getServerJwtSecret(): string;
+  abstract getCartServiceUrl(): string;
 }
