@@ -9,6 +9,8 @@ import { CartService } from './services/cart-service.interface';
 import { CartServiceImpl } from './services/implementations/cart.service';
 import { AddProductToCartUseCase } from './usecases/add-product-to-cart.usecase';
 import { ClearCartUseCase } from './usecases/clear-cart.usecase';
+import { DeleteCartByIdUseCase } from './usecases/delete-cart-by-id.usecase';
+import { FindCartByUserIdUseCase } from './usecases/find-cart-by-user-id.usecase';
 import { FindUserCartUseCase } from './usecases/find-user-cart.usecase';
 import { SubtractProductFromCartUseCase } from './usecases/subtract-product-from-cart.usecase';
 
@@ -21,6 +23,8 @@ import { SubtractProductFromCartUseCase } from './usecases/subtract-product-from
     { provide: CartService, useClass: CartServiceImpl },
     AddProductToCartUseCase,
     ClearCartUseCase,
+    DeleteCartByIdUseCase,
+    FindCartByUserIdUseCase,
     FindUserCartUseCase,
     SubtractProductFromCartUseCase,
   ],
