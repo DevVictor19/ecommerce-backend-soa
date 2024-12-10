@@ -22,7 +22,7 @@ const {
   cartsServiceUrl,
   cartsPrefix,
   cartsAllowedRoutes,
-} = require("./routes/carts.route");
+} = require("./routes/carts.routes");
 
 const fastify = Fastify({
   logger: true,
