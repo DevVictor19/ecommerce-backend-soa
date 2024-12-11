@@ -1,7 +1,7 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 
-import { CartDto } from '@/carts/dtos/cart.dto';
+import { CartDto } from '@/core/carts/dtos/cart.dto';
 
 import { CartService } from '../cart-service.interface';
 

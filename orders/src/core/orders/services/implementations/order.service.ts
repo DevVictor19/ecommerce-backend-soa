@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, SortOrder } from 'mongoose';
 
-import { Page, Params } from '@/@types/pagination';
-import { Order } from '@/orders/entities/order.entity';
+import { Page, Params } from '@/common/@types/pagination';
+import { Order } from '@/core/orders/entities/order.entity';
 
 import { OrderService } from '../order-service.interface';
 

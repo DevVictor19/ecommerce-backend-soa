@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import { CartService } from '@/carts/services/cart-service.interface';
+import { CartService } from '@/core/carts/services/cart-service.interface';
 
 import { Order } from '../entities/order.entity';
 import { OrderFactory } from '../factories/order.factory';

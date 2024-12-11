@@ -1,4 +1,4 @@
-import { CartDto } from '@/carts/dtos/cart.dto';
+import { CartDto } from '@/core/carts/dtos/cart.dto';
 
 import { OrderCart } from '../entities/order-cart.entity';
 import { CartProductMapper } from './cart-product.mapper';

@@ -1,4 +1,4 @@
-import { CartProductDto } from '@/carts/dtos/cart-product.dto';
+import { CartProductDto } from '@/core/carts/dtos/cart-product.dto';
 
 import { CartProduct } from '../entities/cart-product.entity';
 

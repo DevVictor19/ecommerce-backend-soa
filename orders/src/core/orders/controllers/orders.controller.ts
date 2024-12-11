@@ -10,7 +10,7 @@ import {
   Query,
 } from '@nestjs/common';
 
-import { Page, SortOrder } from '@/@types/pagination';
+import { Page, SortOrder } from '@/common/@types/pagination';
 
 import { OrderDto } from '../dtos/order.dto';
 import { Order } from '../entities/order.entity';

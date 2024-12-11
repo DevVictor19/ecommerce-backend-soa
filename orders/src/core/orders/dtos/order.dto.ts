@@ -6,7 +6,7 @@ import {
   IsString,
 } from 'class-validator';
 
-import { CartDto } from '@/carts/dtos/cart.dto';
+import { CartDto } from '@/core/carts/dtos/cart.dto';
 
 import { ORDER_STATUS } from '../enums/order-status.enum';
 import { PaymentDto } from './payment.dto';
