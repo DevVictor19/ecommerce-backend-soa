@@ -4,10 +4,8 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 
-import {
-  ProductDto,
-  ProductService,
-} from '@/products/services/product-service.interface';
+import { ProductDto } from '@/products/dtos/product.dto';
+import { ProductService } from '@/products/services/product-service.interface';
 
 import { Cart } from '../entities/cart.entity';
 import { CartProduct } from '../entities/cart-product.entity';
