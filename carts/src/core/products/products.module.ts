@@ -1,7 +1,7 @@
 import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 
-import { EnvConfigService } from '@/env-config/services/env-config-service.interface';
+import { EnvConfigService } from '@/infra/env-config/services/env-config-service.interface';
 
 import { ProductServiceImpl } from './services/implementations/product.service';
 import { ProductService } from './services/product-service.interface';

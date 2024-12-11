@@ -1,8 +1,7 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 
-import { ProductDto } from '@/products/dtos/product.dto';
-
+import { ProductDto } from '../../dtos/product.dto';
 import { ProductService } from '../product-service.interface';
 
 @Injectable()

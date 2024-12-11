@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 
-import { EnvConfigService } from '@/env-config/services/env-config-service.interface';
+import { EnvConfigService } from '../env-config/services/env-config-service.interface';
 
 @Module({
   imports: [

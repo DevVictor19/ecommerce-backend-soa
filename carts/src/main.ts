@@ -8,7 +8,7 @@ import { Logger } from 'nestjs-pino';
 
 import { AppModule } from './app.module';
 import { AxiosExceptionFilter } from './common/filters/axios-exception.filter';
-import { EnvConfigService } from './env-config/services/env-config-service.interface';
+import { EnvConfigService } from './infra/env-config/services/env-config-service.interface';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(

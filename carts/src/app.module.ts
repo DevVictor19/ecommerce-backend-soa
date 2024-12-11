@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { LoggerModule } from 'nestjs-pino';
 
-import { CartsModule } from './carts/carts.module';
-import { DatabaseModule } from './database/database.module';
-import { EnvConfigModule } from './env-config/env-config.module';
-import { ProductsModule } from './products/products.module';
+import { CartsModule } from './core/carts/carts.module';
+import { ProductsModule } from './core/products/products.module';
+import { DatabaseModule } from './infra/database/database.module';
+import { EnvConfigModule } from './infra/env-config/env-config.module';
 
 @Module({
   imports: [
