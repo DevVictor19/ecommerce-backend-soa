@@ -1,6 +1,6 @@
 import { ConflictException, Injectable } from '@nestjs/common';
 
-import { UsersService } from '@/users/services/users-service.interface';
+import { UsersService } from '@/core/users/services/users-service.interface';
 
 import { HashService } from '../services/hash-service.interface';
 

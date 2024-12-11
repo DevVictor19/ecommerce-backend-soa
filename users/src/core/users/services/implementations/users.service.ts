@@ -2,7 +2,7 @@ import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
-import { UsersFactory } from '@/users/factories/users.factory';
+import { UsersFactory } from '@/core/users/factories/users.factory';
 
 import { User } from '../../entities/user.entity';
 import { UsersService } from '../users-service.interface';

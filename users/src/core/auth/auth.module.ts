@@ -2,7 +2,7 @@ import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 
-import { UsersModule } from '@/users/users.module';
+import { UsersModule } from '@/core/users/users.module';
 
 import { AuthController } from './controllers/auth.controller';
 import { HashService } from './services/hash-service.interface';
