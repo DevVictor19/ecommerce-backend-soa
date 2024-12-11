@@ -1,4 +1,4 @@
-import { Page, Params } from '@/@types/pagination';
+import { Page, Params } from '@/common/@types/pagination';
 
 import { Product } from '../entities/product.entity';
 

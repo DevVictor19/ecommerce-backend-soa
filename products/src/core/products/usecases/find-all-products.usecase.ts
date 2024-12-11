@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import { SortOrder } from '@/@types/pagination';
+import { SortOrder } from '@/common/@types/pagination';
 
 import { Product } from '../entities/product.entity';
 import { ProductService } from '../services/product-service.interface';

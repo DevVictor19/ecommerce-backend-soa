@@ -12,7 +12,7 @@ import {
   Query,
 } from '@nestjs/common';
 
-import { Page, SortOrder } from '@/@types/pagination';
+import { Page, SortOrder } from '@/common/@types/pagination';
 
 import { CheckProductsStockAvailabilityDto } from '../dtos/check-products-stock-availability.dto';
 import { CreateProductDto } from '../dtos/create-product.dto';

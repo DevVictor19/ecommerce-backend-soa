@@ -2,10 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, SortOrder } from 'mongoose';
 
-import { Page, Params } from '@/@types/pagination';
-import { Product } from '@/products/entities/product.entity';
-import { ProductFactory } from '@/products/factories/product.factory';
+import { Page, Params } from '@/common/@types/pagination';
 
+import { Product } from '../../entities/product.entity';
+import { ProductFactory } from '../../factories/product.factory';
 import { ProductService } from '../product-service.interface';
 
 @Injectable()
