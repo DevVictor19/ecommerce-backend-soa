@@ -5,7 +5,7 @@ import { CartService } from '@/core/carts/services/cart-service.interface';
 import { Order } from '../entities/order.entity';
 import { OrderFactory } from '../factories/order.factory';
 import { OrderCartFactory } from '../factories/order-cart.factory';
-import { CartMapper } from '../mappers/cart.mapper';
+import { OrderCartMapper } from '../mappers/order-cart.mapper';
 import { OrderService } from '../services/order-service.interface';
 
 @Injectable()
@@ -18,7 +18,7 @@ export class CreateOrderUseCase {
   async execute(userId: string): Promise<Order> {
     const cart = await this.cartService
       .findByUserId(userId)
-      .then(CartMapper.toEntity);
+      .then(OrderCartMapper.toEntity);
 
     const orderCart = OrderCartFactory.create(
       cart._id,
