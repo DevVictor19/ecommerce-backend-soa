@@ -1,0 +1,8 @@
+services:
+  backend:
+    container_name: payments-nest-api
+    restart: always
+    build:
+      context: .
+    env_file:
+      - .env
