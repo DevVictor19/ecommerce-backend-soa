@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  Body,
   Controller,
   Delete,
   Get,
@@ -8,11 +9,14 @@ import {
   ParseUUIDPipe,
   Post,
   Query,
+  Req,
 } from '@nestjs/common';
+import { FastifyRequest } from 'fastify';
 
 import { Page, SortOrder } from '@/common/@types/pagination';
 
 import { OrderDto } from '../dtos/order.dto';
+import { PayOrderWithCreditCardDto } from '../dtos/pay-order-with-credit-card.dto';
 import { Order } from '../entities/order.entity';
 import { ORDER_STATUS } from '../enums/order-status.enum';
 import { OrderMapper } from '../mappers/order.mapper';
@@ -21,6 +25,7 @@ import { CreateOrderUseCase } from '../usecases/create-order.usecase';
 import { FindAllOrdersUseCase } from '../usecases/find-all-orders.usecase';
 import { FindAllUserOrdersUseCase } from '../usecases/find-all-user-orders.usecase';
 import { FindOrderByIdUseCase } from '../usecases/find-order-by-id.usecase';
+import { PayOrderWithCreditCardUseCase } from '../usecases/pay-order-with-credit-card.usecase';
 
 @Controller('orders')
 export class OrdersController {
@@ -30,6 +35,7 @@ export class OrdersController {
     private readonly findAllOrdersUseCase: FindAllOrdersUseCase,
     private readonly findAllUserOrdersUseCase: FindAllUserOrdersUseCase,
     private readonly findOrderByIdUseCase: FindOrderByIdUseCase,
+    private readonly payOrderWithCreditCardUseCase: PayOrderWithCreditCardUseCase,
   ) {}
 
   @Get()
@@ -95,5 +101,24 @@ export class OrdersController {
     }
 
     await this.cancelOrderUseCase.execute(orderId, userId);
+  }
+
+  @Post('my-orders/:orderId/payments/credit')
+  async payOrderWithCreditCard(
+    @Body() dto: PayOrderWithCreditCardDto,
+    @Param('orderId', ParseUUIDPipe) orderId: string,
+    @Req() req: FastifyRequest,
+    @Headers('x-user-id') userId?: string,
+  ) {
+    if (!userId) {
+      throw new BadRequestException('Missing logged user id');
+    }
+
+    await this.payOrderWithCreditCardUseCase.execute({
+      dto,
+      userId,
+      orderId,
+      remoteIp: req.ip,
+    });
   }
 }

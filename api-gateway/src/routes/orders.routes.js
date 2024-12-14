@@ -35,6 +35,11 @@ const ordersAllowedRoutes = [
     method: httpMethods.delete,
     roles: addClientPermission(),
   },
+  {
+    path: "/orders/my-orders/:orderId/payments/credit",
+    method: httpMethods.post,
+    roles: addClientPermission(),
+  },
 ];
 
 const ordersPrefix = "/orders";

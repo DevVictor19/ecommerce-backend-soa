@@ -10,7 +10,7 @@ import { RabbitMQService } from '../rabbitmq-service.interface';
 export class PaymentsQueueServiceImpl implements PaymentsQueueService {
   constructor(private readonly rabbitMQService: RabbitMQService) {}
 
-  async push(message: PaymentsQueueMessage): Promise<void> {
+  async publish(message: PaymentsQueueMessage): Promise<void> {
     await this.rabbitMQService.publish('payments-queue', message);
   }
 }

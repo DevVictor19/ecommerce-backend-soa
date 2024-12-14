@@ -38,7 +38,7 @@ export class RabbitMQServiceImpl
   async publish(queue: string, message: any): Promise<void> {
     await this.channel.assertQueue(queue);
     this.channel.sendToQueue(queue, Buffer.from(JSON.stringify(message)));
-    this.logger.log(`Message sent to queue "${queue}"`, message);
+    this.logger.log(`Message sent to queue "${queue}"`);
   }
 
   async consume(queue: string, onMessage: (msg: any) => void): Promise<void> {

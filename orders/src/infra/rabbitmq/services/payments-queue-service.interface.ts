@@ -25,5 +25,5 @@ export type PaymentsQueueMessage = {
 };
 
 export abstract class PaymentsQueueService {
-  abstract push(message: PaymentsQueueMessage): Promise<void>;
+  abstract publish(message: PaymentsQueueMessage): Promise<void>;
 }
