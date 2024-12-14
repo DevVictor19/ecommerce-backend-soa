@@ -1,6 +1,6 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 
-import { UsersService } from '@/core/users/services/users-service.interface';
+import { UserService } from '@/core/users/services/user-service.interface';
 
 import { HashService } from '../services/hash-service.interface';
 import { JwtService } from '../services/jwt-service.interface';
@@ -8,13 +8,13 @@ import { JwtService } from '../services/jwt-service.interface';
 @Injectable()
 export class LoginUseCase {
   constructor(
-    private readonly usersService: UsersService,
+    private readonly userService: UserService,
     private readonly hashService: HashService,
     private readonly jwtService: JwtService,
   ) {}
 
   async execute(email: string, password: string) {
-    const user = await this.usersService.findByEmail(email);
+    const user = await this.userService.findByEmail(email);
 
     if (!user) {
       throw new UnauthorizedException('Invalid email or password');

@@ -1,6 +1,6 @@
 import { User } from '../entities/user.entity';
 
-export abstract class UsersService {
+export abstract class UserService {
   abstract createClient(
     username: string,
     email: string,

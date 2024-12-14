@@ -5,10 +5,10 @@ import { Model } from 'mongoose';
 import { UsersFactory } from '@/core/users/factories/users.factory';
 
 import { User } from '../../entities/user.entity';
-import { UsersService } from '../users-service.interface';
+import { UserService } from '../user-service.interface';
 
 @Injectable()
-export class UsersServiceImpl implements UsersService {
+export class UserServiceImpl implements UserService {
   constructor(
     @InjectModel(User.name)
     private readonly model: Model<User>,
