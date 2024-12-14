@@ -1,10 +1,18 @@
 import { Module } from '@nestjs/common';
 import { LoggerModule } from 'nestjs-pino';
 
-import { DatabaseModule } from './infra/database/database.module';
+import { PaymentsModule } from './core/payments/payments.module';
+import { ProductsModule } from './core/products/products.module';
 import { EnvConfigModule } from './infra/env-config/env-config.module';
+import { RabbitMQModule } from './infra/rabbitmq/rabbitmq.module';
 
 @Module({
-  imports: [DatabaseModule, EnvConfigModule, LoggerModule.forRoot()],
+  imports: [
+    EnvConfigModule,
+    LoggerModule.forRoot(),
+    RabbitMQModule,
+    PaymentsModule,
+    ProductsModule,
+  ],
 })
 export class AppModule {}

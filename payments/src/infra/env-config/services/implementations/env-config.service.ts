@@ -8,27 +8,19 @@ import { EnvConfigService } from '../env-config-service.interface';
 export class EnvConfigServiceImpl implements EnvConfigService {
   constructor(private readonly configService: ConfigService) {}
 
-  getDbUri(): string {
-    return this.configService.getOrThrow('DB_URI');
+  getProductServiceUrl(): string {
+    return this.configService.getOrThrow('PRODUCT_SERVICE_URL');
   }
 
-  getDbName(): string {
-    return this.configService.getOrThrow('DB_NAME');
+  getRabbitMQUrl(): string {
+    return this.configService.getOrThrow('RABBIT_MQ_URL');
   }
 
-  getDbUser(): string {
-    return this.configService.getOrThrow('DB_USER');
+  getPaymentGatewayUrl(): string {
+    return this.configService.getOrThrow('PAYMENT_GW_URL');
   }
 
-  getDbPassword(): string {
-    return this.configService.getOrThrow('DB_PASSWORD');
-  }
-
-  getDbPort(): number {
-    return this.configService.getOrThrow('DB_PORT');
-  }
-
-  getServerPort(): number {
-    return this.configService.getOrThrow('SERVER_PORT');
+  getPaymentGatewayKey(): string {
+    return this.configService.getOrThrow('PAYMENT_GW_KEY');
   }
 }
