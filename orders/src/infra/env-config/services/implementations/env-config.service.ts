@@ -39,4 +39,12 @@ export class EnvConfigServiceImpl implements EnvConfigService {
   getCartServiceUrl(): string {
     return this.configService.getOrThrow('CART_SERVICE_URL');
   }
+
+  getUserServiceUrl(): string {
+    return this.configService.getOrThrow('USER_SERVICE_URL');
+  }
+
+  getRabbitMQUrl(): string {
+    return this.configService.getOrThrow('RABBIT_MQ_URL');
+  }
 }

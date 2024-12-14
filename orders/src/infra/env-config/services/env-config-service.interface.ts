@@ -7,4 +7,6 @@ export abstract class EnvConfigService {
   abstract getServerPort(): number;
   abstract getServerJwtSecret(): string;
   abstract getCartServiceUrl(): string;
+  abstract getUserServiceUrl(): string;
+  abstract getRabbitMQUrl(): string;
 }
