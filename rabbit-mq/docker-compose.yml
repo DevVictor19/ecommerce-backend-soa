@@ -1,0 +1,15 @@
+services:
+  broker:
+    container_name: rabbitmq
+    image: rabbitmq:4
+    restart: always
+    environment:
+      - RABBITMQ_DEFAULT_PASS=admin
+      - RABBITMQ_DEFAULT_USER=admin
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+      - rabbitmq_logs:/var/log/rabbitmq
+
+volumes:
+  rabbitmq_data:
+  rabbitmq_logs:
