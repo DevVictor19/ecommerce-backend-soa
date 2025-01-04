@@ -11,6 +11,6 @@ export class PaymentsQueueServiceImpl implements PaymentsQueueService {
   constructor(private readonly rabbitMQService: RabbitMQService) {}
 
   async publish(message: PaymentsQueueMessage): Promise<void> {
-    await this.rabbitMQService.publish('payments-queue', message);
+    await this.rabbitMQService.publishToQueue('payments-queue', message);
   }
 }

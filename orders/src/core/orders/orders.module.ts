@@ -15,6 +15,8 @@ import { FindAllOrdersUseCase } from './usecases/find-all-orders.usecase';
 import { FindAllUserOrdersUseCase } from './usecases/find-all-user-orders.usecase';
 import { FindOrderByIdUseCase } from './usecases/find-order-by-id.usecase';
 import { PayOrderWithCreditCardUseCase } from './usecases/pay-order-with-credit-card.usecase';
+import { UpdateOrderAfterSuccessfulPaymentUseCase } from './usecases/update-order-after-successful-payment.usecase';
+import { UpdateOrderAfterUnsuccessfulPaymentUseCase } from './usecases/update-order-after-unsuccessful-payment.usecase';
 
 @Module({
   imports: [
@@ -31,6 +33,8 @@ import { PayOrderWithCreditCardUseCase } from './usecases/pay-order-with-credit-
     FindAllUserOrdersUseCase,
     FindOrderByIdUseCase,
     PayOrderWithCreditCardUseCase,
+    UpdateOrderAfterSuccessfulPaymentUseCase,
+    UpdateOrderAfterUnsuccessfulPaymentUseCase,
   ],
   controllers: [OrdersController],
 })

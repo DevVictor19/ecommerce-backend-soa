@@ -35,21 +35,69 @@ export class RabbitMQServiceImpl
     this.logger.log('RabbitMQ disconnected');
   }
 
-  async publish(queue: string, message: any): Promise<void> {
+  async publishToQueue(queue: string, message: any): Promise<void> {
     await this.channel.assertQueue(queue);
-    this.channel.sendToQueue(queue, Buffer.from(JSON.stringify(message)));
+    this.channel.sendToQueue(queue, this.prepareMessage(message));
     this.logger.log(`Message sent to queue "${queue}"`);
   }
 
-  async consume(queue: string, onMessage: (msg: any) => void): Promise<void> {
+  async consumeFromQueue(
+    queue: string,
+    onMessage: (msg: any) => void,
+  ): Promise<void> {
     await this.channel.assertQueue(queue);
     this.channel.consume(queue, (msg) => {
       if (msg) {
-        const content = JSON.parse(msg.content.toString());
-        onMessage(content);
+        onMessage(this.parseMessage(msg.content));
         this.channel.ack(msg);
       }
     });
     this.logger.log(`Consuming messages from queue "${queue}"`);
+  }
+
+  async publishToDirectExchange(
+    exchange: string,
+    routeKey: string,
+    message: any,
+  ): Promise<void> {
+    await this.channel.assertExchange(exchange, 'direct', {
+      durable: false,
+    });
+
+    this.channel.publish(exchange, routeKey, this.prepareMessage(message));
+    this.logger.log(`Message sent to exchange "${exchange}"`);
+  }
+
+  async consumeFromDirectExchange(
+    exchange: string,
+    routeKey: string,
+    onMessage: (msg: any) => void,
+  ): Promise<void> {
+    await this.channel.assertExchange(exchange, 'direct', {
+      durable: false,
+    });
+
+    const { queue } = await this.channel.assertQueue('', { exclusive: true });
+
+    await this.channel.bindQueue(queue, exchange, routeKey);
+
+    this.channel.consume(
+      queue,
+      (msg) => {
+        if (msg) {
+          onMessage(this.parseMessage(msg.content));
+        }
+        this.logger.log(`Consuming messages from exchange "${exchange}"`);
+      },
+      { noAck: true },
+    );
+  }
+
+  private prepareMessage(message: any) {
+    return Buffer.from(JSON.stringify(message));
+  }
+
+  private parseMessage(message: Buffer) {
+    return JSON.parse(message.toString());
   }
 }
