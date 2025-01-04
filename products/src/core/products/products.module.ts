@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 
+import { RabbitMQModule } from '@/infra/rabbitmq/rabbitmq.module';
+
 import { ProductsController } from './controllers/products.controller';
 import { Product, ProductSchema } from './entities/product.entity';
 import { ProductServiceImpl } from './services/implementations/product.service';
@@ -16,6 +18,7 @@ import { UpdateProductUseCase } from './usecases/update-product.usecase';
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: Product.name, schema: ProductSchema }]),
+    RabbitMQModule,
   ],
   providers: [
     { provide: ProductService, useClass: ProductServiceImpl },

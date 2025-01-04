@@ -17,7 +17,6 @@ import { Page, SortOrder } from '@/common/@types/pagination';
 import { CheckProductsStockAvailabilityDto } from '../dtos/check-products-stock-availability.dto';
 import { CreateProductDto } from '../dtos/create-product.dto';
 import { ProductDto } from '../dtos/product.dto';
-import { SubtractProductsFromStockDto } from '../dtos/subtract-products-from-stock.dto';
 import { UpdateProductDto } from '../dtos/update-product.dto';
 import { Product } from '../entities/product.entity';
 import { ProductMapper } from '../mappers/product.mapper';
@@ -26,7 +25,6 @@ import { CreateProductUseCase } from '../usecases/create-product.usecase';
 import { DeleteProductUseCase } from '../usecases/delete-product.usecase';
 import { FindAllProductsUseCase } from '../usecases/find-all-products.usecase';
 import { FindProductByIdUseCase } from '../usecases/find-product-by-id.usecase';
-import { SubtractProductsFromStockUseCase } from '../usecases/subtract-products-from-stock.usecase';
 import { UpdateProductUseCase } from '../usecases/update-product.usecase';
 
 @Controller('products')
@@ -37,7 +35,6 @@ export class ProductsController {
     private readonly deleteProductUseCase: DeleteProductUseCase,
     private readonly findAllProductsUseCase: FindAllProductsUseCase,
     private readonly findProductByIdUseCase: FindProductByIdUseCase,
-    private readonly subtractProductsFromStockUseCase: SubtractProductsFromStockUseCase,
     private readonly updateProductUseCase: UpdateProductUseCase,
   ) {}
 
@@ -47,12 +44,6 @@ export class ProductsController {
     @Body() dto: CheckProductsStockAvailabilityDto,
   ) {
     await this.checkProductsStockAvailabilityUseCase.execute(dto.products);
-  }
-
-  @Post('subtract')
-  @HttpCode(HttpStatus.OK)
-  async subtractProductsFromStock(@Body() dto: SubtractProductsFromStockDto) {
-    await this.subtractProductsFromStockUseCase.execute(dto.products);
   }
 
   @Post()

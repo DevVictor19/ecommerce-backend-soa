@@ -31,4 +31,8 @@ export class EnvConfigServiceImpl implements EnvConfigService {
   getServerPort(): number {
     return this.configService.getOrThrow('SERVER_PORT');
   }
+
+  getRabbitMQUrl(): string {
+    return this.configService.getOrThrow('RABBIT_MQ_URL');
+  }
 }

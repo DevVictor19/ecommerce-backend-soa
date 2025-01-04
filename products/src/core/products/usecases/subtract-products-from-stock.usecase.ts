@@ -1,17 +1,39 @@
 import {
   BadRequestException,
   Injectable,
+  Logger,
   NotFoundException,
+  OnModuleInit,
 } from '@nestjs/common';
 
-import { CartProductDto } from '../dtos/cart-product.dto';
+import {
+  PaymentMadeEvent,
+  PaymentStatusEventQueueService,
+} from '@/infra/rabbitmq/services/payment-status-event-queue-service.interface';
+
 import { ProductService } from '../services/product-service.interface';
 
 @Injectable()
-export class SubtractProductsFromStockUseCase {
-  constructor(private readonly productService: ProductService) {}
+export class SubtractProductsFromStockUseCase implements OnModuleInit {
+  private readonly logger = new Logger(SubtractProductsFromStockUseCase.name);
 
-  async execute(products: CartProductDto[]) {
+  constructor(
+    private readonly productService: ProductService,
+    private readonly paymentStatusEventQueueService: PaymentStatusEventQueueService,
+  ) {}
+
+  async onModuleInit() {
+    await this.paymentStatusEventQueueService.consumePaymentMadeEvent(
+      this.execute.bind(this),
+    );
+    this.logger.log('Listening to PAYMENT_MADE events...');
+  }
+
+  private async execute(event: PaymentMadeEvent) {
+    this.logger.log('Processing PAYMENT_MADE event');
+
+    const { products } = event.order;
+
     if (products.length > 30) {
       throw new BadRequestException(
         'Cannot process more than 30 products for stock subtraction',
