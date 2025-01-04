@@ -1,0 +1,43 @@
+<html>
+  <head>
+    <meta charset='UTF-8' />
+    <title>Payment Confirmation</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 0; padding: 0;
+      background-color: #f4f4f4; } .container { max-width: 600px; margin: 20px
+      auto; padding: 20px; background-color: #ffffff; border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); } .header { text-align: center;
+      border-bottom: 1px solid #dddddd; padding-bottom: 20px; margin-bottom:
+      20px; } .header h1 { color: #333333; } .content { color: #555555;
+      line-height: 1.6; } .content .details { margin: 20px 0; border: 1px solid
+      #dddddd; padding: 10px; border-radius: 8px; background-color: #f9f9f9; }
+      .footer { text-align: center; margin-top: 20px; font-size: 12px; color:
+      #999999; }
+    </style>
+  </head>
+  <body>
+    <div class='container'>
+      <div class='header'>
+        <h1>Payment Confirmation</h1>
+      </div>
+      <div class='content'>
+        <p>Dear Customer,</p>
+        <p>We are pleased to inform you that your payment has been successfully
+          received. Below are the details of your order:</p>
+        <div class='details'>
+          <p><strong>Order ID:</strong> {{orderId}}</p>
+          <p><strong>Total Price:</strong> ${{totalPrice}}</p>
+          <p><strong>Date:</strong> {{date}}</p>
+          <p><strong>Payment Method:</strong> {{paymentMethod}}</p>
+        </div>
+        <p>Your order is now being processed, and we’ll notify you once it has
+          been shipped.</p>
+        <p>If you have any questions, feel free to contact our support team.</p>
+        <p>Thank you for shopping with us!</p>
+      </div>
+      <div class='footer'>
+        <p>&copy; {{year}} Your Company Name. All rights reserved.</p>
+      </div>
+    </div>
+  </body>
+</html>

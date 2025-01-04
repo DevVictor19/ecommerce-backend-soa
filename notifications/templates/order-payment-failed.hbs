@@ -1,0 +1,44 @@
+<html>
+  <head>
+    <meta charset='UTF-8' />
+    <title>Payment Failed</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 0; padding: 0;
+      background-color: #f4f4f4; } .container { max-width: 600px; margin: 20px
+      auto; padding: 20px; background-color: #ffffff; border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); } .header { text-align: center;
+      border-bottom: 1px solid #dddddd; padding-bottom: 20px; margin-bottom:
+      20px; } .header h1 { color: #d9534f; } .content { color: #555555;
+      line-height: 1.6; } .content .details { margin: 20px 0; border: 1px solid
+      #dddddd; padding: 10px; border-radius: 8px; background-color: #f9f9f9; }
+      .footer { text-align: center; margin-top: 20px; font-size: 12px; color:
+      #999999; }
+    </style>
+  </head>
+  <body>
+    <div class='container'>
+      <div class='header'>
+        <h1>Payment Failed</h1>
+      </div>
+      <div class='content'>
+        <p>Dear Customer,</p>
+        <p>Unfortunately, your payment attempt for the following order has
+          failed:</p>
+        <div class='details'>
+          <p><strong>Order ID:</strong> {{orderId}}</p>
+          <p><strong>Total Price:</strong> ${{totalPrice}}</p>
+          <p><strong>Date:</strong> {{date}}</p>
+          <p><strong>Payment Method:</strong> {{paymentMethod}}</p>
+        </div>
+        <p>We kindly ask you to try completing the payment again. If you
+          continue to experience issues, please contact our support team for
+          assistance.</p>
+        <p>Thank you for your patience, and we apologize for any inconvenience
+          caused.</p>
+      </div>
+      <div class='footer'>
+        <p>&copy; {{year}} Your Company Name. All rights reserved.</p>
+      </div>
+    </div>
+  </body>
+</html>
