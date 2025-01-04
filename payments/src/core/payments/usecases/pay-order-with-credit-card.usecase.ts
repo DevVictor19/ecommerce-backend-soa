@@ -2,10 +2,10 @@ import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 
 import { ProductService } from '@/core/products/services/product-service.interface';
 import {
-  PaymentFailedEvent,
-  PaymentMadeEvent,
-  PaymentStatusEventQueueService,
-} from '@/infra/rabbitmq/services/payment-status-event-queue-service.interface';
+  OrderPaymentFailedEvent,
+  OrderPaymentSucceedEvent,
+  OrderStatusEventQueueService,
+} from '@/infra/rabbitmq/services/order-status-event-queue-service.interface';
 import {
   PaymentsQueueMessage,
   PaymentsQueueService,
@@ -20,7 +20,7 @@ export class PayOrderWithCreditCardUseCase implements OnModuleInit {
   constructor(
     private readonly paymentService: PaymentService,
     private readonly productService: ProductService,
-    private readonly paymentStatusEventQueueService: PaymentStatusEventQueueService,
+    private readonly orderStatusEventQueueService: OrderStatusEventQueueService,
     private readonly paymentsQueueService: PaymentsQueueService,
   ) {}
 
@@ -35,12 +35,12 @@ export class PayOrderWithCreditCardUseCase implements OnModuleInit {
     try {
       const charge = await this.processCharge(message);
 
-      await this.paymentStatusEventQueueService.emitPaymentMadeEvent(
-        this.preparePaymentMadeEvent(message, charge.id),
+      await this.orderStatusEventQueueService.emitPaymentSucceedEvent(
+        this.prepareOrderPaymentSucceedEvent(message, charge.id),
       );
     } catch {
-      await this.paymentStatusEventQueueService.emitPaymentFailedEvent(
-        this.preparePaymentFailedEvent(message),
+      await this.orderStatusEventQueueService.emitPaymentFailedEvent(
+        this.prepareOrderPaymentFailedEvent(message),
       );
     }
   }
@@ -69,10 +69,10 @@ export class PayOrderWithCreditCardUseCase implements OnModuleInit {
     );
   }
 
-  private preparePaymentMadeEvent(
+  private prepareOrderPaymentSucceedEvent(
     message: PaymentsQueueMessage,
     transactionCode: string,
-  ): PaymentMadeEvent {
+  ): OrderPaymentSucceedEvent {
     return {
       order: {
         id: message.order.id,
@@ -92,9 +92,9 @@ export class PayOrderWithCreditCardUseCase implements OnModuleInit {
     };
   }
 
-  private preparePaymentFailedEvent(
+  private prepareOrderPaymentFailedEvent(
     message: PaymentsQueueMessage,
-  ): PaymentFailedEvent {
+  ): OrderPaymentFailedEvent {
     return {
       order: {
         id: message.order.id,
