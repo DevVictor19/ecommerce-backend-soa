@@ -1,0 +1,1937 @@
+{
+	"info": {
+		"_postman_id": "4ec3d071-9533-4aa8-800a-e698d6a38bc9",
+		"name": "ecommerce-api-soa",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28019759"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"Antonio Victor\",\n    \"email\": \"antoniovictor1604@gmail.com\", \n    \"password\": \"senha123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}/auth/signup",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "signup",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"admin\",\n    \"email\": \"admin@email.com\", \n    \"password\": \"admin1234\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api}}/auth/signup",
+									"host": [
+										"{{api}}"
+									],
+									"path": [
+										"auth",
+										"signup"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "0"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Oct 2024 18:14:55 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Extrair o token da resposta JSON",
+									"const responseJson = pm.response.json();",
+									"const token = responseJson.token; // Pega o valor do campo \"token\"",
+									"",
+									"// Salva o token em uma variável de ambiente chamada \"JWT\"",
+									"pm.collectionVariables.set(\"JWT\", token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"antoniovictor1604@gmail.com\", \n    \"password\": \"senha123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}/auth/login",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"admin@email.com\", \n    \"password\": \"admin1234\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api}}/auth/login",
+									"host": [
+										"{{api}}"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Oct 2024 18:16:27 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAiLCJzdWIiOiIyMGRlN2NjYy1lMjM3LTQ0YzAtOGFjZi00ZGQwMmNlYjA4MjAiLCJleHAiOjE3Mjk2NDk3ODd9.Q7r7TntHQWDvUDHtD_YouBFx6PmnaGwCVR34YeiO8HU\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "products",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"price\": 5990,\n    \"name\": \"Smart Plug Wi-Fi\",\n    \"description\": \"Wi-Fi-enabled smart plug that lets you control your devices remotely and set\",\n    \"photoUrl\": \"https://images.pexels.com/photos/3943727/pexels-photo-3943727.jpeg?auto=compress&cs=tinysrgb&h=650&w=940\",\n    \"stockQuantity\": 200\n}\n\n\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}/products",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "create",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"price\": 49990,\n    \"name\": \"Wireless Headphones Max\",\n    \"description\": \"Noise-canceling over-ear headphones with immersive sound and long battery life.\",\n    \"photoUrl\": \"https://images.pexels.com/photos/7156884/pexels-photo-7156884.jpeg?auto=compress&cs=tinysrgb&h=650&w=940\",\n    \"stockQuantity\": 120\n}\n\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api}}/products",
+									"host": [
+										"{{api}}"
+									],
+									"path": [
+										"products"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "0"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Oct 2024 18:18:10 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"price\": 10990,\n    \"name\": \"Teste\",\n    \"description\": \"Color-changing LED bulb with app control and voice assistant integration.\",\n    \"photoUrl\": \"https://images.pexels.com/photos/1905744/pexels-photo-1905744.jpeg?auto=compress&cs=tinysrgb&h=650&w=940\",\n    \"stockQuantity\": 50\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}/products/:productId",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"products",
+								":productId"
+							],
+							"variable": [
+								{
+									"key": "productId",
+									"value": "0093d9a0-fa22-4235-a935-eba8fc37130e"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "update",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"price\": 10990,\n    \"name\": \"Smart LED Light Bulb\",\n    \"description\": \"Color-changing LED bulb with app control and voice assistant integration.\",\n    \"photoUrl\": \"https://images.pexels.com/photos/1905744/pexels-photo-1905744.jpeg?auto=compress&cs=tinysrgb&h=650&w=940\",\n    \"stockQuantity\": 50\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api}}/products/:productId",
+									"host": [
+										"{{api}}"
+									],
+									"path": [
+										"products",
+										":productId"
+									],
+									"variable": [
+										{
+											"key": "productId",
+											"value": "6f1b54b3-c146-4bbb-b93b-38ba57f9cd1a"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "0"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Oct 2024 18:42:33 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"price\": 999.99,\n    \"name\": \"Smartphone Pro\",\n    \"description\": \"High-end smartphone with advanced features and sleek design.\",\n    \"photoUrl\": \"https://www.apple.com/v/iphone/home/bw/images/overview/select/iphone_16pro__erw9alves2qa_xlarge_2x.png\",\n    \"stockQuantity\": 50\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}/products/:productId",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"products",
+								":productId"
+							],
+							"variable": [
+								{
+									"key": "productId",
+									"value": "d0cf66b7-9496-462b-b7ed-ce7a95bcb44c"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "delete",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"price\": 999.99,\n    \"name\": \"Smartphone Pro\",\n    \"description\": \"High-end smartphone with advanced features and sleek design.\",\n    \"photoUrl\": \"https://www.apple.com/v/iphone/home/bw/images/overview/select/iphone_16pro__erw9alves2qa_xlarge_2x.png\",\n    \"stockQuantity\": 50\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api}}/products/:productId",
+									"host": [
+										"{{api}}"
+									],
+									"path": [
+										"products",
+										":productId"
+									],
+									"variable": [
+										{
+											"key": "productId",
+											"value": "2024e1f7-92aa-4645-bacc-9a96578fae02"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "0"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Oct 2024 18:45:22 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "find all",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/products?page=0",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "20",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "ASC",
+									"disabled": true
+								},
+								{
+									"key": "sortBy",
+									"value": "price",
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": "Wireless",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "find all",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api}}/products",
+									"host": [
+										"{{api}}"
+									],
+									"path": [
+										"products"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0",
+											"disabled": true
+										},
+										{
+											"key": "size",
+											"value": "20",
+											"disabled": true
+										},
+										{
+											"key": "sort",
+											"value": "ASC",
+											"disabled": true
+										},
+										{
+											"key": "sortBy",
+											"value": "createdAt",
+											"disabled": true
+										},
+										{
+											"key": "name",
+											"value": "Wireless",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Oct 2024 18:44:46 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"content\": [\n        {\n            \"id\": \"de6f82a1-ec0e-40b4-86b5-246dc746b27b\",\n            \"price\": 3490,\n            \"name\": \"Wireless Charging Pad\",\n            \"description\": \"Fast wireless charger compatible with Qi-enabled devices.\",\n            \"photoUrl\": \"https://images.pexels.com/photos/11874353/pexels-photo-11874353.jpeg?auto=compress&cs=tinysrgb&h=650&w=940\",\n            \"stockQuantity\": 120,\n            \"createdAt\": \"2024-10-22T18:26:27.062+00:00\"\n        },\n        {\n            \"id\": \"729a4b29-c385-4f3a-ba5b-e3c689d39454\",\n            \"price\": 15990,\n            \"name\": \"Wireless Ergonomic Mouse\",\n            \"description\": \"Ergonomic mouse with adjustable DPI, silent clicks, and rechargeable battery.\",\n            \"photoUrl\": \"https://images.pexels.com/photos/8131358/pexels-photo-8131358.jpeg?auto=compress&cs=tinysrgb&h=650&w=940\",\n            \"stockQuantity\": 95,\n            \"createdAt\": \"2024-10-22T18:25:38.702+00:00\"\n        },\n        {\n            \"id\": \"84a5a5e5-1861-47bd-9b3b-c0e7169f7cfd\",\n            \"price\": 8990,\n            \"name\": \"Wireless Bluetooth Speaker\",\n            \"description\": \"Portable speaker with deep bass, 12-hour battery life, and water resistance.\",\n            \"photoUrl\": \"https://images.pexels.com/photos/4481259/pexels-photo-4481259.jpeg?auto=compress&cs=tinysrgb&h=650&w=940\",\n            \"stockQuantity\": 60,\n            \"createdAt\": \"2024-10-22T18:24:47.827+00:00\"\n        },\n        {\n            \"id\": \"2024e1f7-92aa-4645-bacc-9a96578fae02\",\n            \"price\": 49990,\n            \"name\": \"Wireless Headphones Max\",\n            \"description\": \"Noise-canceling over-ear headphones with immersive sound and long battery life.\",\n            \"photoUrl\": \"https://images.pexels.com/photos/7156884/pexels-photo-7156884.jpeg?auto=compress&cs=tinysrgb&h=650&w=940\",\n            \"stockQuantity\": 120,\n            \"createdAt\": \"2024-10-22T18:18:10.971+00:00\"\n        }\n    ],\n    \"page\": {\n        \"size\": 10,\n        \"number\": 0,\n        \"totalElements\": 4,\n        \"totalPages\": 1\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "find by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/products/:productId",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"products",
+								":productId"
+							],
+							"variable": [
+								{
+									"key": "productId",
+									"value": "8aaa97e7-334d-474c-a6f2-8d44a68aa005"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "find by id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api}}/products/:productId",
+									"host": [
+										"{{api}}"
+									],
+									"path": [
+										"products",
+										":productId"
+									],
+									"variable": [
+										{
+											"key": "productId",
+											"value": "6f1b54b3-c146-4bbb-b93b-38ba57f9cd1a"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 29 Oct 2024 17:14:13 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"6f1b54b3-c146-4bbb-b93b-38ba57f9cd1a\",\n    \"price\": 10990,\n    \"name\": \"Smart LED Light Bulb\",\n    \"description\": \"Color-changing LED bulb with app control and voice assistant integration.\",\n    \"photoUrl\": \"https://images.pexels.com/photos/1905744/pexels-photo-1905744.jpeg?auto=compress&cs=tinysrgb&h=650&w=940\",\n    \"stockQuantity\": 50,\n    \"createdAt\": \"2024-10-22T18:26:32.870+00:00\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "carts",
+			"item": [
+				{
+					"name": "find my cart",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/carts/my-cart",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"carts",
+								"my-cart"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "find my cart",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api}}/carts/my-cart",
+									"host": [
+										"{{api}}"
+									],
+									"path": [
+										"carts",
+										"my-cart"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Oct 2024 18:46:49 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"bf25a842-1331-4ace-8f5b-376f1a7e7d10\",\n    \"products\": [\n        {\n            \"id\": \"de6f82a1-ec0e-40b4-86b5-246dc746b27b\",\n            \"price\": 3490,\n            \"name\": \"Wireless Charging Pad\",\n            \"description\": \"Fast wireless charger compatible with Qi-enabled devices.\",\n            \"photoUrl\": \"https://images.pexels.com/photos/11874353/pexels-photo-11874353.jpeg?auto=compress&cs=tinysrgb&h=650&w=940\",\n            \"inCartQuantity\": 10\n        }\n    ],\n    \"productsQuantity\": 10,\n    \"totalPrice\": 34900,\n    \"createdAt\": \"2024-10-22T18:46:40.894+00:00\"\n}"
+						},
+						{
+							"name": "find my cart",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api}}/carts/my-cart",
+									"host": [
+										"{{api}}"
+									],
+									"path": [
+										"carts",
+										"my-cart"
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 30 Oct 2024 17:37:53 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "clear my cart",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/carts/my-cart",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"carts",
+								"my-cart"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "clear my cart",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{api}}/carts/my-cart",
+									"host": [
+										"{{api}}"
+									],
+									"path": [
+										"carts",
+										"my-cart"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "0"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Oct 2024 18:47:02 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "add product to my cart",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/carts/my-cart/products/:productId?quantity=10",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"carts",
+								"my-cart",
+								"products",
+								":productId"
+							],
+							"query": [
+								{
+									"key": "quantity",
+									"value": "10"
+								}
+							],
+							"variable": [
+								{
+									"key": "productId",
+									"value": "8aaa97e7-334d-474c-a6f2-8d44a68aa005"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "add product to my cart",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{api}}/carts/my-cart/products/:productId?quantity=10",
+									"host": [
+										"{{api}}"
+									],
+									"path": [
+										"carts",
+										"my-cart",
+										"products",
+										":productId"
+									],
+									"query": [
+										{
+											"key": "quantity",
+											"value": "10"
+										}
+									],
+									"variable": [
+										{
+											"key": "productId",
+											"value": "de6f82a1-ec0e-40b4-86b5-246dc746b27b"
+										}
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "0"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Oct 2024 18:46:40 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "subtract product to my cart",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/carts/my-cart/products/:productId?quantity=5",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"carts",
+								"my-cart",
+								"products",
+								":productId"
+							],
+							"query": [
+								{
+									"key": "quantity",
+									"value": "5"
+								}
+							],
+							"variable": [
+								{
+									"key": "productId",
+									"value": "8aaa97e7-334d-474c-a6f2-8d44a68aa005"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "subtract product to my cart",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{api}}/carts/my-cart/products/:productId?quantity=1",
+									"host": [
+										"{{api}}"
+									],
+									"path": [
+										"carts",
+										"my-cart",
+										"products",
+										":productId"
+									],
+									"query": [
+										{
+											"key": "quantity",
+											"value": "1"
+										}
+									],
+									"variable": [
+										{
+											"key": "productId",
+											"value": "de6f82a1-ec0e-40b4-86b5-246dc746b27b"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "0"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Oct 2024 18:47:49 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "orders",
+			"item": [
+				{
+					"name": "list orders",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/orders",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"orders"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "size",
+									"value": "10",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "asc",
+									"disabled": true
+								},
+								{
+									"key": "sortBy",
+									"value": "id",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "PAID",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "list orders",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api}}/orders",
+									"host": [
+										"{{api}}"
+									],
+									"path": [
+										"orders"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0",
+											"disabled": true
+										},
+										{
+											"key": "size",
+											"value": "10",
+											"disabled": true
+										},
+										{
+											"key": "sort",
+											"value": "asc",
+											"disabled": true
+										},
+										{
+											"key": "sortBy",
+											"value": "id",
+											"disabled": true
+										},
+										{
+											"key": "status",
+											"value": "PAID",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Oct 2024 18:49:33 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"content\": [\n        {\n            \"id\": \"ecba31ef-a5f1-41b2-97ed-02625b467335\",\n            \"status\": \"WAITING_PAYMENT\",\n            \"cart\": {\n                \"id\": \"a69a06cc-737b-4eb3-89fb-98d97ed0f650\",\n                \"products\": [\n                    {\n                        \"id\": \"de6f82a1-ec0e-40b4-86b5-246dc746b27b\",\n                        \"price\": 3490,\n                        \"name\": \"Wireless Charging Pad\",\n                        \"description\": \"Fast wireless charger compatible with Qi-enabled devices.\",\n                        \"photoUrl\": \"https://images.pexels.com/photos/11874353/pexels-photo-11874353.jpeg?auto=compress&cs=tinysrgb&h=650&w=940\",\n                        \"inCartQuantity\": 9\n                    }\n                ],\n                \"productsQuantity\": 9,\n                \"totalPrice\": 31410,\n                \"createdAt\": \"2024-10-22T18:47:13.850+00:00\"\n            },\n            \"payment\": null,\n            \"createdAt\": \"2024-10-22T18:49:16.958+00:00\"\n        }\n    ],\n    \"page\": {\n        \"size\": 10,\n        \"number\": 0,\n        \"totalElements\": 1,\n        \"totalPages\": 1\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "list my orders",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/orders/my-orders",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"orders",
+								"my-orders"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "size",
+									"value": "10",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "asc",
+									"disabled": true
+								},
+								{
+									"key": "sortBy",
+									"value": "id",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "PAID",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "list my orders",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api}}/orders/my-orders",
+									"host": [
+										"{{api}}"
+									],
+									"path": [
+										"orders",
+										"my-orders"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0",
+											"disabled": true
+										},
+										{
+											"key": "size",
+											"value": "10",
+											"disabled": true
+										},
+										{
+											"key": "sort",
+											"value": "asc",
+											"disabled": true
+										},
+										{
+											"key": "sortBy",
+											"value": "id",
+											"disabled": true
+										},
+										{
+											"key": "status",
+											"value": "PAID",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Oct 2024 18:49:20 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"content\": [\n        {\n            \"id\": \"ecba31ef-a5f1-41b2-97ed-02625b467335\",\n            \"status\": \"WAITING_PAYMENT\",\n            \"cart\": {\n                \"id\": \"a69a06cc-737b-4eb3-89fb-98d97ed0f650\",\n                \"products\": [\n                    {\n                        \"id\": \"de6f82a1-ec0e-40b4-86b5-246dc746b27b\",\n                        \"price\": 3490,\n                        \"name\": \"Wireless Charging Pad\",\n                        \"description\": \"Fast wireless charger compatible with Qi-enabled devices.\",\n                        \"photoUrl\": \"https://images.pexels.com/photos/11874353/pexels-photo-11874353.jpeg?auto=compress&cs=tinysrgb&h=650&w=940\",\n                        \"inCartQuantity\": 9\n                    }\n                ],\n                \"productsQuantity\": 9,\n                \"totalPrice\": 31410,\n                \"createdAt\": \"2024-10-22T18:47:13.850+00:00\"\n            },\n            \"payment\": null,\n            \"createdAt\": \"2024-10-22T18:49:16.958+00:00\"\n        }\n    ],\n    \"page\": {\n        \"size\": 10,\n        \"number\": 0,\n        \"totalElements\": 1,\n        \"totalPages\": 1\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "create my order",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/orders/my-orders",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"orders",
+								"my-orders"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "create my order",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{api}}/orders/my-orders",
+									"host": [
+										"{{api}}"
+									],
+									"path": [
+										"orders",
+										"my-orders"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 03 Nov 2024 19:12:55 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"93eb190e-c788-420a-a117-d21be5b5f460\",\n    \"status\": \"WAITING_PAYMENT\",\n    \"cart\": {\n        \"id\": \"a97d39de-b275-430a-9b7b-f3226a2460a1\",\n        \"products\": [\n            {\n                \"id\": \"de6f82a1-ec0e-40b4-86b5-246dc746b27b\",\n                \"price\": 3490,\n                \"name\": \"Wireless Charging Pad\",\n                \"description\": \"Fast wireless charger compatible with Qi-enabled devices.\",\n                \"photoUrl\": \"https://images.pexels.com/photos/11874353/pexels-photo-11874353.jpeg?auto=compress&cs=tinysrgb&h=650&w=940\",\n                \"inCartQuantity\": 12\n            },\n            {\n                \"id\": \"8e5de9d2-bea0-4097-9541-90d1696807bc\",\n                \"price\": 24990,\n                \"name\": \"Gaming Headset Pro\",\n                \"description\": \"Over-ear gaming headset with surround sound, noise-canceling mic, and RGB lighting.\",\n                \"photoUrl\": \"https://images.pexels.com/photos/7862430/pexels-photo-7862430.jpeg?auto=compress&cs=tinysrgb&h=650&w=940\",\n                \"inCartQuantity\": 1\n            },\n            {\n                \"id\": \"cab1c402-523c-4c4c-a7e1-fceff09db060\",\n                \"price\": 12990,\n                \"name\": \"Smartwatch Fit Pro\",\n                \"description\": \"A fitness-focused smartwatch with heart rate monitoring, GPS tracking, and water resistance.\",\n                \"photoUrl\": \"https://images.pexels.com/photos/267394/pexels-photo-267394.jpeg?auto=compress&cs=tinysrgb&h=650&w=940\",\n                \"inCartQuantity\": 1\n            }\n        ],\n        \"productsQuantity\": 14,\n        \"totalPrice\": 79860,\n        \"createdAt\": \"2024-11-03T00:32:25.852+00:00\"\n    },\n    \"payment\": null,\n    \"createdAt\": \"2024-11-03T19:12:55.777+00:00\"\n}"
+						}
+					]
+				},
+				{
+					"name": "pay with credit card",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"document\": \"56185348004\",\n    \"parcels\": 1,\n    \"card\": {\n        \"number\": \"1234567890123456\",\n        \"expiryMonth\": \"10\",\n        \"holderName\": \"John Doe\",\n        \"expiryYear\": \"2024\",\n        \"ccv\": \"123\"\n    }\n} ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}/orders/my-orders/:orderId/payments/credit",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"orders",
+								"my-orders",
+								":orderId",
+								"payments",
+								"credit"
+							],
+							"variable": [
+								{
+									"key": "orderId",
+									"value": "f4ba168a-6b5f-4296-9c5b-44684ba19b83"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "pay with credit card",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"document\": \"33332132132\",\n    \"parcels\": 1,\n    \"card\": {\n        \"number\": \"1234567890123456\",\n        \"expiryMonth\": \"10\",\n        \"holderName\": \"John Doe\",\n        \"expiryYear\": \"2024\",\n        \"ccv\": \"123\"\n    }\n} ",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api}}/orders/my-orders/:orderId/payments/credit",
+									"host": [
+										"{{api}}"
+									],
+									"path": [
+										"orders",
+										"my-orders",
+										":orderId",
+										"payments",
+										"credit"
+									],
+									"variable": [
+										{
+											"key": "orderId",
+											"value": "feb5bcdd-ef51-47a2-a916-0ddb3913f9f9"
+										}
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "content-length",
+									"value": "0"
+								},
+								{
+									"key": "date",
+									"value": "Sat, 14 Dec 2024 17:44:36 GMT"
+								},
+								{
+									"key": "connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "keep-alive",
+									"value": "timeout=72"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "api",
+			"value": "http://localhost:8080"
+		},
+		{
+			"key": "JWT",
+			"value": ""
+		}
+	]
+}
