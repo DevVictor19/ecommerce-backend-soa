@@ -1,6 +1,6 @@
 export type EventProduct = { id: string; inCartQuantity: number };
 
-export type PaymentFailedEvent = {
+export type OrderPaymentFailedEvent = {
   user: {
     id: string;
     name: string;
@@ -18,7 +18,7 @@ export type PaymentFailedEvent = {
   };
 };
 
-export type PaymentMadeEvent = {
+export type OrderPaymentSucceedEvent = {
   user: {
     id: string;
     name: string;
@@ -36,12 +36,27 @@ export type PaymentMadeEvent = {
   };
 };
 
-export abstract class PaymentStatusEventQueueService {
+export type OrderCreatedEvent = {
+  user: {
+    id: string;
+    name: string;
+    email: string;
+  };
+  order: {
+    id: string;
+    price: number;
+    products: EventProduct[];
+  };
+};
+
+export abstract class OrderStatusEventQueueService {
   abstract consumePaymentFailedEvent(
-    onEvent: (event: PaymentFailedEvent) => void,
+    onEvent: (event: OrderPaymentFailedEvent) => void,
   ): Promise<void>;
 
-  abstract consumePaymentMadeEvent(
-    onEvent: (event: PaymentMadeEvent) => void,
+  abstract consumePaymentSucceedEvent(
+    onEvent: (event: OrderPaymentSucceedEvent) => void,
   ): Promise<void>;
+
+  abstract emitOrderCreatedEvent(event: OrderCreatedEvent): Promise<void>;
 }

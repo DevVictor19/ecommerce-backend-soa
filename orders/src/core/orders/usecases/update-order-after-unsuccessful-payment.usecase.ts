@@ -6,9 +6,9 @@ import {
 } from '@nestjs/common';
 
 import {
-  PaymentFailedEvent,
-  PaymentStatusEventQueueService,
-} from '@/infra/rabbitmq/services/payment-status-event-queue-service.interface';
+  OrderPaymentFailedEvent,
+  OrderStatusEventQueueService,
+} from '@/infra/rabbitmq/services/order-status-event-queue-service.interface';
 
 import { ORDER_STATUS } from '../enums/order-status.enum';
 import { OrderService } from '../services/order-service.interface';
@@ -23,18 +23,18 @@ export class UpdateOrderAfterUnsuccessfulPaymentUseCase
 
   constructor(
     private readonly orderService: OrderService,
-    private readonly paymentStatusEventQueueService: PaymentStatusEventQueueService,
+    private readonly orderStatusEventQueueService: OrderStatusEventQueueService,
   ) {}
 
   async onModuleInit() {
-    await this.paymentStatusEventQueueService.consumePaymentFailedEvent(
+    await this.orderStatusEventQueueService.consumePaymentFailedEvent(
       this.execute.bind(this),
     );
-    this.logger.log('Listening to PAYMENT_FAILED events...');
+    this.logger.log('Listening to order-payment-failed events...');
   }
 
-  private async execute(event: PaymentFailedEvent) {
-    this.logger.log('Processing PAYMENT_FAILED event');
+  private async execute(event: OrderPaymentFailedEvent) {
+    this.logger.log('Processing order-payment-failed event');
 
     const order = await this.orderService.findById(event.order.id);
 
