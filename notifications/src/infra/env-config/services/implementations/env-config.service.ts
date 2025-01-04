@@ -8,10 +8,6 @@ import { EnvConfigService } from '../env-config-service.interface';
 export class EnvConfigServiceImpl implements EnvConfigService {
   constructor(private readonly configService: ConfigService) {}
 
-  getServerPort(): number {
-    return this.configService.getOrThrow('SERVER_PORT');
-  }
-
   getRabbitMQUrl(): string {
     return this.configService.getOrThrow('RABBIT_MQ_URL');
   }
