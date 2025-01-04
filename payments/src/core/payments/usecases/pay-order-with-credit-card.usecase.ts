@@ -2,6 +2,11 @@ import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 
 import { ProductService } from '@/core/products/services/product-service.interface';
 import {
+  PaymentFailedEvent,
+  PaymentMadeEvent,
+  PaymentStatusEventQueueService,
+} from '@/infra/rabbitmq/services/payment-status-event-queue-service.interface';
+import {
   PaymentsQueueMessage,
   PaymentsQueueService,
 } from '@/infra/rabbitmq/services/payments-queue-service.interface';
@@ -15,6 +20,7 @@ export class PayOrderWithCreditCardUseCase implements OnModuleInit {
   constructor(
     private readonly paymentService: PaymentService,
     private readonly productService: ProductService,
+    private readonly paymentStatusEventQueueService: PaymentStatusEventQueueService,
     private readonly paymentsQueueService: PaymentsQueueService,
   ) {}
 
@@ -26,6 +32,20 @@ export class PayOrderWithCreditCardUseCase implements OnModuleInit {
   private async execute(message: PaymentsQueueMessage) {
     this.logger.log('Consuming message from payments-queue');
 
+    try {
+      const charge = await this.processCharge(message);
+
+      await this.paymentStatusEventQueueService.emitPaymentMadeEvent(
+        this.preparePaymentMadeEvent(message, charge.id),
+      );
+    } catch {
+      await this.paymentStatusEventQueueService.emitPaymentFailedEvent(
+        this.preparePaymentFailedEvent(message),
+      );
+    }
+  }
+
+  private async processCharge(message: PaymentsQueueMessage) {
     let customer = await this.paymentService.findCustomerByDocument(
       message.payment.document,
     );
@@ -40,14 +60,57 @@ export class PayOrderWithCreditCardUseCase implements OnModuleInit {
 
     await this.productService.checkStockAvailability(message.order.products);
 
-    const charge = await this.paymentService.createCreditCardCharge(
+    return this.paymentService.createCreditCardCharge(
       customer.id,
       message.user.remoteIp,
       message.order.price,
       message.payment.parcels,
       message.payment.card,
     );
+  }
 
-    console.log(charge);
+  private preparePaymentMadeEvent(
+    message: PaymentsQueueMessage,
+    transactionCode: string,
+  ): PaymentMadeEvent {
+    return {
+      order: {
+        id: message.order.id,
+        price: message.order.price,
+        products: message.order.products,
+      },
+      payment: {
+        method: message.payment.method,
+        parcels: message.payment.parcels,
+        transactionCode,
+      },
+      user: {
+        email: message.user.email,
+        id: message.user.id,
+        name: message.user.name,
+      },
+    };
+  }
+
+  private preparePaymentFailedEvent(
+    message: PaymentsQueueMessage,
+  ): PaymentFailedEvent {
+    return {
+      order: {
+        id: message.order.id,
+        price: message.order.price,
+        products: message.order.products,
+      },
+      payment: {
+        method: message.payment.method,
+        parcels: message.payment.parcels,
+        transactionCode: null,
+      },
+      user: {
+        email: message.user.email,
+        id: message.user.id,
+        name: message.user.name,
+      },
+    };
   }
 }
