@@ -30,6 +30,10 @@ Backend for a generic ecommerce, but using service oriented architecture
 
 <img src="./soa-ecommerce-backend.png" alt="soa png" />
 
+## ERD
+
+<img src="./ecommerce-erd.png" alt="soa png" />
+
 ## Running Locally
 
 To run locally you have to start each service using docker.
